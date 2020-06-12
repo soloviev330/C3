@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+  <p id="newCity"></p>
+  <div id="input_city">
+  <p><b>Введите ваш город:</b><br>
+   <input id="city" type="text" size="30" placeholder="Владивосток" style="border-radius: 5px; height: 20px; margin-top: 10px">
+  </p>
+  </div>
+  <p><button id="save">Сохранить</button></p>
+
+  <p> <button id="clear" style="display: none">Очистить</button>
+  
+  
+  <p><b>Ваши предпочтения:</b><Br>
+   <input type="checkbox" id="prefer1"> не звонить мне<Br>
+   <input type="checkbox" id="prefer2"> я прочитал и согласен с правилами пользования сервисом<Br>
+   <input type="checkbox" id="prefer3"> я не выбираю эту галочку<Br>
+   <input type="checkbox" id="prefer4"> я подтверждаю, что свобода в интернете — это возможность выбирать галочки<Br>
+   <input type="checkbox" id="prefer5"> мне больше 12 лет<Br>
+   <input type="checkbox" id="prefer6" name = "123"  > это задание выполнено правильно<Br>
+  </p>
+  <p><button id="save_checkbox" >Зафиксировать</button></p>
+ 
+
+
+
+
+
+<script>
+// Выгружаем ранее сохраненные значения и состояния
+	city.value = localStorage.getItem('city');
+	save.style = localStorage.getItem('save');
+	clear.style = localStorage.getItem('clear');
+	newCity.innerHTML = "Ваш город: " + localStorage.getItem('city');
+
+
+	if (localStorage.getItem("disable_button") == "false") {
+	save_checkbox.disabled = false
+	}
+	else {save_checkbox.disabled = true
+	}
+
+
+	const mem = JSON.parse(localStorage.getItem("checkboxes_mem"));
+
+	let elements = document.querySelectorAll("input[type='checkbox']")
+		for (let i=0; i<elements.length; i++) {
+			elements[i].checked=mem[i]
+			}
+
+
+	console.log(mem)
+
+
+	save.onclick = () => {
+		localStorage.setItem('city', city.value)
+		localStorage.setItem('save', save.style = 'display: none')
+		localStorage.setItem('clear', clear.style='display: true')
+		newCity.innerHTML = "Ваш город: " + city.value
+	};
+
+	clear.onclick = () => {
+		localStorage.setItem('city', city.value)
+		localStorage.setItem('save', save.style='display: true')
+		localStorage.setItem('clear', clear.style='display: none')
+		localStorage.setItem("disable_button", save_checkbox.disabled = false)
+
+	};
+
+	city.oninput = () => {
+		save.style='display: true'
+		clear.style='display: none'		
+	}
+
+// сохраняем все отмеченные пункты и выключаем кнопку на возможность изменить выбор
+	save_ch = () => {
+		let status = document.querySelector("input[type='checkbox']")
+		const mem = [];
+		let elements = document.querySelectorAll("input[type='checkbox']")
+		for (let i=0; i<elements.length; i++) {
+			let element = elements[i];
+			if (element.checked == true) {
+				mem.push(1)
+				}
+			else {
+				mem.push(0)
+				}
+			}
+		console.log(mem)
+		localStorage.setItem("checkboxes_mem", JSON.stringify(mem))
+		}
+
+		save_checkbox.onclick = () => {
+			save_ch()
+			localStorage.setItem("disable_button", save_checkbox.disabled = true)
+		}
+
+
+</script>
+</body>
+</html>
