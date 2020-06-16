@@ -32,11 +32,26 @@
 
 
 <script>
+
+document.cookie = "test1=Hello";
+
+// возвращает куки с указанным name,
+// или undefined, если ничего не найдено
+function getCookie(name) {
+  let matches = document.cookie.match(new RegExp(
+    "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+  ));
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
+console.log(document.cookie)
+
+
 // Выгружаем ранее сохраненные значения и состояния
 	city.value = localStorage.getItem('city');
 	save.style = localStorage.getItem('save');
 	clear.style = localStorage.getItem('clear');
-	newCity.innerHTML = "Ваш город: " + localStorage.getItem('city');
+	newCity.innerHTML = "Ваш город: " + localStorage.getItem('city') + "2 ";
 
 
 	if (localStorage.getItem("disable_button") == "false") {
@@ -62,6 +77,8 @@
 		localStorage.setItem('save', save.style = 'display: none')
 		localStorage.setItem('clear', clear.style='display: true')
 		newCity.innerHTML = "Ваш город: " + city.value
+
+
 	};
 
 	clear.onclick = () => {
