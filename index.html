@@ -71,16 +71,18 @@ const checkValue = (value) => {
 	clear.style = localStorage.getItem('clear');
 	
 
-	if (city.value !== null) {
-		newCity.innerHTML = "Ваш город: "
-		// clear.style='display: none'
+	if (Boolean(city.value)) {
+		newCity.innerHTML = "Ваш город: " + city.value;
+		save.style = 'display: none';
+		console.log("значение не пустое");
+		input_city.style = 'display: none';
+		clear.style = 'display: true';
 	}
-
-
-	// if (city.value !== null) {
-
-	// newCity.innerHTML = "Ваш город: " + localStorage.getItem('city')
-	// }
+	else {
+		clear.style = 'display: none';
+		save.style = 'display: true';
+		input_city.style = 'display: true';
+	}
 
 	
 
@@ -107,6 +109,7 @@ const checkValue = (value) => {
 		localStorage.setItem('save', save.style = 'display: none')
 		localStorage.setItem('clear', clear.style='display: true')
 		newCity.innerHTML = "Ваш город: " + city.value
+		localStorage.setItem('save', input_city.style = 'display: none')
 
 		console.log(getCookie("test1"))
 		console.log(getCookie("city2"))
@@ -118,6 +121,7 @@ const checkValue = (value) => {
 		localStorage.setItem('save', save.style='display: true')
 		localStorage.setItem('clear', clear.style='display: none')
 		localStorage.setItem("disable_button", save_checkbox.disabled = false)
+		localStorage.setItem('save', input_city.style = 'display: true')
 
 	};
 
@@ -148,7 +152,6 @@ const checkValue = (value) => {
 			save_ch()
 			localStorage.setItem("disable_button", save_checkbox.disabled = true)
 		}
-
 
 
 </script>
