@@ -84,7 +84,11 @@ const checkValue = (value) => {
 		input_city.style = 'display: true';
 	}
 
-	
+	var result = (localStorage.getItem('disable_button') == "true")
+
+	console.log (result)
+
+	save_checkbox.disabled = result;
 
 
 	const mem = JSON.parse(localStorage.getItem("checkboxes_mem"));
@@ -101,7 +105,7 @@ const checkValue = (value) => {
 			}
 		
 
-	console.log(mem)
+	
 
 
 	save.onclick = () => {
