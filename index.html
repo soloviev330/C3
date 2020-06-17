@@ -41,11 +41,23 @@ localStorage.setItem('test2', "World")
 
 console.log(localStorage.getItem('test2'));
 
+
+
+//получаем значение города из куки
+const getCookie = (name) => {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]).trim() : undefined;
+}
+
+console.log(getCookie("city2"))
+
 // Выгружаем ранее сохраненные значения и состояния
 	city.value = localStorage.getItem('city');
 	save.style = localStorage.getItem('save');
 	clear.style = localStorage.getItem('clear');
-	newCity.innerHTML = "Ваш город: " + localStorage.getItem('city') + "2 ";
+	newCity.innerHTML = "Ваш город: " + localStorage.getItem('city') + getCookie("city2");
 
 
 	if (localStorage.getItem("disable_button") == "false") {
@@ -68,6 +80,7 @@ console.log(localStorage.getItem('test2'));
 
 	save.onclick = () => {
 		localStorage.setItem('city', city.value)
+		document.cookie = "city2=city.value";
 		localStorage.setItem('save', save.style = 'display: none')
 		localStorage.setItem('clear', clear.style='display: true')
 		newCity.innerHTML = "Ваш город: " + city.value
